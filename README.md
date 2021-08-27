@@ -18,3 +18,8 @@
 
 ### Credits 
 - [Inter Font](https://rsms.me/inter/) by Rasmus Andersson & [typeface-inter package](https://github.com/ajmalafif/typeface-inter) by Ajmal Afif
+
+
+# stephenlind-com
+stephen lind website
+0bc7da5df5df1a98f756bbcb8b70f796a2cc4f46
