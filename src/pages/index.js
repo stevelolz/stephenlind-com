@@ -84,6 +84,14 @@ const MusicFlexItem = styled.div`
   p {
     font-size: 14px;
   }
+  &#needy {
+    background: rgb(205, 224, 222);
+    background: linear-gradient(90deg, rgba(205, 224, 222, 1) 0%, rgba(144, 174, 176, 1) 100%);
+  }
+  &#just-another-night {
+    background: rgb(237, 240, 229);
+    background: linear-gradient(90deg, rgba(237, 240, 229, 1) 0%, rgba(167, 182, 143, 1) 100%);
+  }
   &#anxiety {
     background: rgb(233, 230, 241);
     background: linear-gradient(90deg, rgba(233, 230, 241, 1) 0%, rgba(179, 160, 215, 1) 100%);
