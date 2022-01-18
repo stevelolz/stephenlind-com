@@ -1,10 +1,9 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, { Fragment, useEffect } from 'react';
 import {graphql, useStaticQuery, Link} from 'gatsby';
 import styled from 'styled-components';
-import {StaticImage} from 'gatsby-plugin-image';
-import {colors} from '../consts/style';
-import {headerTypes} from '../types/propTypes';
-import _map from 'lodash/map';
+import { StaticImage } from 'gatsby-plugin-image';
+import { colors } from '../consts/style';
+import { headerTypes } from '../types/propTypes';
 
 const Wrapper = styled.header`
   background: transparent;
@@ -33,7 +32,7 @@ const Nav = styled.div`
     flex-wrap: wrap;
     gap: 30px;
     button {
-      color: white;
+      color: ${colors.light}; 
       font-size: 13px;
       font-weight: bold;
       text-transform: uppercase;
@@ -147,6 +146,7 @@ const headerQuery = graphql`
                 alt
             }
             socials
+            client
         }
     }
 `;
@@ -158,11 +158,12 @@ export default function Header({location}) {
    */
   useEffect(() => console.log(location), [location]);
   const data = useStaticQuery(headerQuery);
-  const { logo, socials } = data.datoCmsSetting;
+  const { client, logo, socials } = data.datoCmsSetting;
+  const artistLogo = (logo.url);
   let socialLinks = JSON.parse(socials);
 
   return (
-    <Wrapper className={`${scroll > 25 ? 'someClass' :''  }`}>
+    <Wrapper>
       <Nav>
         <nav>
           <button onClick={() => scrollTo('#music')} title="Music">Music</button>
@@ -172,19 +173,19 @@ export default function Header({location}) {
       </Nav>
       <Logo>
         <h1>
-          <a href="/" title="Stephen Lind">
-            <img src={logo.url} alt="Stephen Lind music"/>
+          <a href="/" title={ client } role="link" aria-label="link to Home page">
+            <img src={ artistLogo } alt="Stephen Lind logo" />
           </a>
         </h1>
       </Logo>
       <Socials>
         {socialLinks.map((si, i) => (
           <ul class="socials">
-            <li><a className="facebook" role="link" href={si.facebook} target="_blank" /></li>
-            <li><a className="instagram" role="link" href={si.instagram} target="_blank" /></li>
-            <li><a className="twitter" role="link" href={si.instagram} target="_blank" /></li>
-            <li><a className="tiktok" role="link" href={si.tiktok} target="_blank" /></li>
-            <li><a className="youtube" role="link" href={si.youtube} target="_blank" /></li>
+            <li><a role="link" aria-label="link to Stephen Lind's Facebook" className="facebook" role="link" href={si.facebook} target="_blank" /></li>
+            <li><a role="link" aria-label="link to Stephen Lind's Instagram" className="instagram" role="link" href={si.instagram} target="_blank" /></li>
+            <li><a role="link" aria-label="link to Stephen Lind's Twitter" className="twitter" role="link" href={si.instagram} target="_blank" /></li>
+            <li><a role="link" aria-label="link to Stephen Lind's TikTok" className="tiktok" role="link" href={si.tiktok} target="_blank" /></li>
+            <li><a role="link" aria-label="link to Stephen Lind's YouTube Channel" className="youtube" role="link" href={si.youtube} target="_blank" /></li>
           </ul>
         ))}
       </Socials>

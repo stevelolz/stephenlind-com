@@ -1,6 +1,6 @@
 import React, {Fragment, useContext} from 'react';
 import {graphql, useStaticQuery, Link} from 'gatsby';
-
+import { colors } from '../consts/style';
 import ModalContext from '../store/modalContext';
 import SEO from '../components/SEO';
 import _map from 'lodash/map';
@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import {fadeInUp} from '../style/animations';
 
 export const Hero = styled.div`
-  background: white;
+  background: ${colors.light};
   position: relative;
   animation: ${fadeInUp}0.3s;
   h1 {
@@ -17,7 +17,7 @@ export const Hero = styled.div`
     left: 100px;
     transform: translateY(-50%);
     text-align: center;
-    color: white;
+    color: ${colors.light};
     text-transform: uppercase;
     font-size: 60px;
   }
@@ -32,7 +32,7 @@ export const Hero = styled.div`
 `;
 
 const Music = styled.div`
-  background: white;
+  background: ${colors.light}; 
   position: relative;
   padding: 50px 0;
   animation: ${fadeInUp}0.3s;
@@ -42,9 +42,9 @@ const Music = styled.div`
     padding: 0 50px;
   }
   &:nth-child(2n) {
-    background: black;
+    background: ${colors.dark};
     h2 {
-      color: white;
+      color: ${colors.light};
     }
   }
 `;
@@ -143,7 +143,7 @@ const MusicFlexItemDataLinks = styled.div`
   flex-wrap: wrap;
   a {
     max-width: 25px !important;
-    color: #000;
+    color: ${colors.dark};
     margin: 0 10px 0 0;
     text-transform: uppercase;
     font-weight: bold;
@@ -206,7 +206,7 @@ const Contact = styled.div`
   padding: 50px;
   background: black;
   h2 {
-    color: white;
+    color: ${colors.light};
     text-align: center;
     margin-bottom: 50px;
   }
@@ -215,7 +215,7 @@ const Contact = styled.div`
     width: 100%;
     margin: 0 auto;
     label {
-      color: white;
+      color: ${colors.light};
       font-weight: bold;
       text-transform: uppercase;
       display: block;
@@ -224,7 +224,7 @@ const Contact = styled.div`
       display: block;
       width: 100%;
       background: transparent;
-      color: white;
+      color: ${colors.light};
       border: 0;
       border-bottom: 4px solid white;
       padding: 0 0 10px;
@@ -233,7 +233,7 @@ const Contact = styled.div`
     textarea {
       width: 100%;
       background: transparent;
-      color: white;
+      color: ${colors.light};
       border: 0;
       border-bottom: 4px solid white;
       padding: 0 0 10px;
@@ -242,7 +242,7 @@ const Contact = styled.div`
     }
     button {
       background: white;
-      color: black;
+      color: ${colors.dark};
       border: 0;
       width: 100%;
       padding: 8px;

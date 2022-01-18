@@ -1,27 +1,26 @@
-import { useState, useEffect } from "react"
+import React from 'react';
+import { render } from 'react-dom';
 
-export const useScrollHandler = () => {
-// setting initial value to true
-  const [scroll, setScroll] = useState(1)
+class App extends React.Component {
+  state = {
+    isTop: true,
+  };
 
-// running on mount
-  useEffect(() => {
-    const onScroll = () => {
-      const scrollCheck = window.scrollY < 10
-      if (scrollCheck !== scroll) {
-        setScroll(scrollCheck)
+  componentDidMount() {
+    document.addEventListener('scroll', () => {
+      const isTop = window.scrollY < 100;
+      if (isTop !== this.state.isTop) {
+        this.setState({ isTop })
       }
-    }
-
-// setting the event handler from web API
-    document.addEventListener("scroll", onScroll)
-
-// cleaning up from the web API
-    return () => {
-      document.removeEventListener("scroll", onScroll)
-    }
-  }, [scroll, setScroll])
-
-  return scroll
-
+    });
+  }
+  render() {
+    return (
+      <div style={{ height: '200vh' }}>
+        <h2 style={{ position: 'fixed', top: 0 }}>Scroll {this.state.isTop ? 'down' : 'up'}!</h2>
+      </div>
+    );
+  }
 }
+
+render(<App />, document.getElementById('root'));
