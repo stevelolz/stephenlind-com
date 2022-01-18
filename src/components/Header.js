@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
+import {graphql, useStaticQuery, Link} from 'gatsby';
 import styled from 'styled-components';
-import { StaticImage } from 'gatsby-plugin-image';
+import {StaticImage} from 'gatsby-plugin-image';
+import {colors} from '../consts/style';
+import {headerTypes} from '../types/propTypes';
+import _map from 'lodash/map';
 
-import { colors } from '../consts/style';
-import { headerTypes } from '../types/propTypes';
-import scrollTo from 'gatsby-plugin-smoothscroll';
-
-const Wrapper = styled.div`
-  background: ${colors.primary};
+const Wrapper = styled.header`
+  background: transparent;
   height: 75px;
   display: flex;
   justify-content: center;
@@ -57,8 +57,10 @@ const Logo = styled.div`
   text-align: center;
   h1 {
     a {
-      color: white;
-      text-transform: uppercase;
+      img {
+        max-width: 315px;
+        width: 100%;
+      }
       &:hover {
         text-decoration: none;
         opacity: .5;
@@ -137,15 +139,30 @@ const Socials = styled.div`
   }
 `;
 
-export default function Header({ location }) {
+const headerQuery = graphql`
+    {
+        datoCmsSetting {
+            logo {
+                url
+                alt
+            }
+            socials
+        }
+    }
+`;
+
+export default function Header({location}) {
   /**
    * Oftentimes we'll have different UI state
    * based on the router location.  Do it here.
    */
   useEffect(() => console.log(location), [location]);
+  const data = useStaticQuery(headerQuery);
+  const { logo, socials } = data.datoCmsSetting;
+  let socialLinks = JSON.parse(socials);
 
   return (
-    <Wrapper>
+    <Wrapper className={`${scroll > 25 ? 'someClass' :''  }`}>
       <Nav>
         <nav>
           <button onClick={() => scrollTo('#music')} title="Music">Music</button>
@@ -154,16 +171,22 @@ export default function Header({ location }) {
         </nav>
       </Nav>
       <Logo>
-        <h1><a href="/" title="Stephen Lind">Stephen Lind</a></h1>
+        <h1>
+          <a href="/" title="Stephen Lind">
+            <img src={logo.url} alt="Stephen Lind music"/>
+          </a>
+        </h1>
       </Logo>
       <Socials>
-        <ul class="socials">
-          <li><a class="facebook" role="link" href="https://www.facebook.com/stephenlindmusic" target="_blank"></a></li>
-          <li><a class="instagram" role="link" href="https://www.instagram.com/stephenlind" target="_blank"></a></li>
-          <li><a class="twitter"a role="link" href="https://www.twitter.com/_stephenlind" target="_blank"></a></li>
-          <li><a class="tiktok"a role="link" href="https://www.tiktok.com/_stephenlind" target="_blank"></a></li>
-          <li><a class="youtube" role="link" href="https://www.youtube.com/channel/UC_-B-d4nR3JEIIydBXFlTNQ" target="_blank"></a></li>
-        </ul>
+        {socialLinks.map((si, i) => (
+          <ul class="socials">
+            <li><a className="facebook" role="link" href={si.facebook} target="_blank" /></li>
+            <li><a className="instagram" role="link" href={si.instagram} target="_blank" /></li>
+            <li><a className="twitter" role="link" href={si.instagram} target="_blank" /></li>
+            <li><a className="tiktok" role="link" href={si.tiktok} target="_blank" /></li>
+            <li><a className="youtube" role="link" href={si.youtube} target="_blank" /></li>
+          </ul>
+        ))}
       </Socials>
     </Wrapper>
   );

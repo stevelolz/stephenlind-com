@@ -26,9 +26,9 @@ export const font = {
 };
 
 export const colors = {
-  dark: '#222',
-  light: '#fafafa',
-  primary: '#000',
+  dark: '#000',
+  light: '#fff',
+  primary: '#E4C6DF',
 };
 
 export const z = {
